@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="初次使用树莓派树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。   树莓的相关配件一台树莓派、一张大小8G以上的SD卡（提前写入树莓派系统）、电脑（通过ssh连接树莓派） 步骤下载树莓派系统在树莓官网上下载最新的树莓派操作系统，这里以Raspbian(基于Debian的树莓派系统)为例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派安装、启动、配置">
+<meta property="og:url" content="http://yoursite.com/2020/08/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85%E3%80%81%E5%90%AF%E5%8A%A8%E3%80%81%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="JoeyChen&#39;s Blog">
+<meta property="og:description" content="初次使用树莓派树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。   树莓的相关配件一台树莓派、一张大小8G以上的SD卡（提前写入树莓派系统）、电脑（通过ssh连接树莓派） 步骤下载树莓派系统在树莓官网上下载最新的树莓派操作系统，这里以Raspbian(基于Debian的树莓派系统)为例。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/08/11/cKaZi1j9hmQyBbr.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/11/eXHQdmEBNf9U6Ms.png">
+<meta property="article:published_time" content="2020-08-11T03:02:00.000Z">
+<meta property="article:modified_time" content="2020-08-11T07:39:32.865Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="树莓派">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/08/11/cKaZi1j9hmQyBbr.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85%E3%80%81%E5%90%AF%E5%8A%A8%E3%80%81%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>树莓派安装、启动、配置 | JoeyChen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">JoeyChen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">zhgtt666.github.io</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85%E3%80%81%E5%90%AF%E5%8A%A8%E3%80%81%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="人法地，地法天，天法道，道法自然。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JoeyChen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树莓派安装、启动、配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-11 11:02:00 / 修改时间：15:39:32" itemprop="dateCreated datePublished" datetime="2020-08-11T11:02:00+08:00">2020-08-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="初次使用树莓派"><a href="#初次使用树莓派" class="headerlink" title="初次使用树莓派"></a>初次使用树莓派</h3><p>树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。  </p>
+<h3 id="树莓的相关配件"><a href="#树莓的相关配件" class="headerlink" title="树莓的相关配件"></a>树莓的相关配件</h3><p>一台树莓派、一张大小8G以上的SD卡（提前写入树莓派系统）、电脑（通过ssh连接树莓派）</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="下载树莓派系统"><a href="#下载树莓派系统" class="headerlink" title="下载树莓派系统"></a>下载树莓派系统</h4><p>在树莓官网上下载最新的树莓派操作系统，这里以<strong>Raspbian</strong>(基于Debian的树莓派系统)为例。下载连接：<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">https://www.raspberrypi.org/downloads/raspberry-pi-os/</a>    </p>
+<p><img src="https://i.loli.net/2020/08/11/cKaZi1j9hmQyBbr.png"><br>这里可以选择<a target="_blank" rel="noopener" href="https://downloads.raspberrypi.org/raspios_armhf_latest">Raspbian with desktop</a>版，这是带桌面界面的版本，也可以选择Raspbian Lite版,不带桌面系统，但体积小。</p>
+<h4 id="使用USB-Image-Tool写入镜像到SD卡"><a href="#使用USB-Image-Tool写入镜像到SD卡" class="headerlink" title="使用USB Image Tool写入镜像到SD卡"></a>使用USB Image Tool写入镜像到SD卡</h4><p>下载地址：<a target="_blank" rel="noopener" href="https://en.softonic.com/download/usb-image-tool/windows/post-download">https://en.softonic.com/download/usb-image-tool/windows/post-download</a>  </p>
+<p><img src="https://i.loli.net/2020/08/11/eXHQdmEBNf9U6Ms.png" alt="ef4c24ceaad7726b843d3053bf0f64781523b977.png"><br>注意SD卡的盘符，选择Restore，然后选择刚下载好的镜像压缩包。USB Image Tool可以识别压缩包，不用解压，直接写入即可。</p>
+<h4 id="配置树莓派SSH和WiFi"><a href="#配置树莓派SSH和WiFi" class="headerlink" title="配置树莓派SSH和WiFi"></a>配置树莓派SSH和WiFi</h4><h5 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h5><p>因为要通过SSH连接，所以要提前设置好连接的WIFI，并打开SSH的功能。将刷好 Raspbian 系统的 SD 卡用电脑读取。在 SD卡根目录下，也就是树莓派的 /boot 目录下新建 <strong>wpa_supplicant.conf</strong> 文件，按照下面的参考格式填入内容并保存 <strong>wpa_supplicant.conf</strong> 文件。ssid为网络的ssid， psk为密码。  </p>
+<pre><code>country=CN
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network=&#123;
+ssid=&quot;WiFi名称&quot;  
+psk=&quot;WiFi密码&quot;
+key_mgmt=WPA-PSK
+&#125;</code></pre>
+<h5 id="配置SSH-1"><a href="#配置SSH-1" class="headerlink" title="配置SSH"></a>配置SSH</h5><p>和 WiFi 配置相似，同样在 boot 分区新建一个文件，空白的即可，文件命名为 <strong>ssh</strong>。注意要小写且不要有任何扩展名。</p>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>将树莓派供电，此时树莓派会自动设置SSH和WiFi，我们可以利用Advanced IP Scanner扫描局域网内树莓派的ip地址，或者通过登录本地路由器管理界面(192.168.0.1)查看树莓派的ip，通过SSH连接树莓派。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>整个过程还是遇到不少问题，有时候按照网上给的教程，有些步骤即使照着做，但还是没有成功，难免心态爆炸。最后还是查找解决的办法，多次尝试，解决了问题。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag"># 树莓派</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/24/Hexo%E5%8D%9A%E5%AE%A2NexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/" rel="prev" title="Hexo博客NexT主题添加本地搜索">
+      <i class="fa fa-chevron-left"></i> Hexo博客NexT主题添加本地搜索
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AC%A1%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE"><span class="nav-number">1.</span> <span class="nav-text">初次使用树莓派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E8%8E%93%E7%9A%84%E7%9B%B8%E5%85%B3%E9%85%8D%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">树莓的相关配件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%A0%91%E8%8E%93%E6%B4%BE%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.1.</span> <span class="nav-text">下载树莓派系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8USB-Image-Tool%E5%86%99%E5%85%A5%E9%95%9C%E5%83%8F%E5%88%B0SD%E5%8D%A1"><span class="nav-number">3.2.</span> <span class="nav-text">使用USB Image Tool写入镜像到SD卡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%A0%91%E8%8E%93%E6%B4%BESSH%E5%92%8CWiFi"><span class="nav-number">3.3.</span> <span class="nav-text">配置树莓派SSH和WiFi</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESSH"><span class="nav-number">3.3.1.</span> <span class="nav-text">配置SSH</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AESSH-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">配置SSH</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">3.4.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="John Doe"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description">人法地，地法天，天法道，道法自然。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
