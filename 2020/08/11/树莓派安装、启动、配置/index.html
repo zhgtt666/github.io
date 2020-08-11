@@ -20,17 +20,17 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="初次使用树莓派树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。   树莓的相关配件一台树莓派、一张大小8G以上的SD卡（提前写入树莓派系统）、电脑（通过ssh连接树莓派） 步骤下载树莓派系统在树莓官网上下载最新的树莓派操作系统，这里以Raspbian(基于Debian的树莓派系统)为例。">
+  <meta name="description" content="初次使用树莓派树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树莓派安装、启动、配置">
 <meta property="og:url" content="http://yoursite.com/2020/08/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85%E3%80%81%E5%90%AF%E5%8A%A8%E3%80%81%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="JoeyChen&#39;s Blog">
-<meta property="og:description" content="初次使用树莓派树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。   树莓的相关配件一台树莓派、一张大小8G以上的SD卡（提前写入树莓派系统）、电脑（通过ssh连接树莓派） 步骤下载树莓派系统在树莓官网上下载最新的树莓派操作系统，这里以Raspbian(基于Debian的树莓派系统)为例。">
+<meta property="og:description" content="初次使用树莓派树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2020/08/11/cKaZi1j9hmQyBbr.png">
 <meta property="og:image" content="https://i.loli.net/2020/08/11/eXHQdmEBNf9U6Ms.png">
 <meta property="article:published_time" content="2020-08-11T03:02:00.000Z">
-<meta property="article:modified_time" content="2020-08-11T11:54:48.134Z">
+<meta property="article:modified_time" content="2020-08-11T13:01:31.977Z">
 <meta property="article:author" content="Joey Chen">
 <meta property="article:tag" content="树莓派">
 <meta name="twitter:card" content="summary">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-11 11:02:00 / 修改时间：19:54:48" itemprop="dateCreated datePublished" datetime="2020-08-11T11:02:00+08:00">2020-08-11</time>
+              <time title="创建时间：2020-08-11 11:02:00 / 修改时间：21:01:31" itemprop="dateCreated datePublished" datetime="2020-08-11T11:02:00+08:00">2020-08-11</time>
             </span>
 
           
@@ -227,6 +227,7 @@
 
       
         <h3 id="初次使用树莓派"><a href="#初次使用树莓派" class="headerlink" title="初次使用树莓派"></a>初次使用树莓派</h3><p>树莓派是一种基于微处理器的卡片计算机，也就是说相比单片机等基于微控制器等设备，树莓派的性能更强，能够运行完整的操作系统，实现一些单片机性能不足而不能实现的功能。  </p>
+<a id="more"></a> 
 <h3 id="树莓的相关配件"><a href="#树莓的相关配件" class="headerlink" title="树莓的相关配件"></a>树莓的相关配件</h3><p>一台树莓派、一张大小8G以上的SD卡（提前写入树莓派系统）、电脑（通过ssh连接树莓派）</p>
 <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="下载树莓派系统"><a href="#下载树莓派系统" class="headerlink" title="下载树莓派系统"></a>下载树莓派系统</h4><p>在树莓官网上下载最新的树莓派操作系统，这里以<strong>Raspbian</strong>(基于Debian的树莓派系统)为例。下载连接：<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspberry-pi-os/">https://www.raspberrypi.org/downloads/raspberry-pi-os/</a>    </p>
 <p><img src="https://i.loli.net/2020/08/11/cKaZi1j9hmQyBbr.png"><br>这里可以选择<a target="_blank" rel="noopener" href="https://downloads.raspberrypi.org/raspios_armhf_latest">Raspbian with desktop</a>版，这是带桌面界面的版本，也可以选择Raspbian Lite版,不带桌面系统，但体积小。</p>
